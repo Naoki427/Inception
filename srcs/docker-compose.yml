@@ -7,10 +7,12 @@ services:
       - ${WP_VOLUME}:/var/www/html
     ports:
       - "443:443"
-    # volumes:
-    #   - ./requirements/nginx/html:/var/www/html
+      - "80:80"
     depends_on:
       - wordpress
+    networks:
+      - inception
+
   wordpress:
     image: wordpress
     container_name: wordpress
@@ -23,6 +25,8 @@ services:
       - mariadb
     ports:
       - "9000:9000"
+    networks:
+      - inception
 
   mariadb:
     image: mariadb
@@ -33,6 +37,10 @@ services:
       - ${DB_VOLUME}:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      - inception
 
-volumes:
-  db_data:
+networks:
+  inception:
+    name: inception
+    driver: bridge
