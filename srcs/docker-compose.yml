@@ -7,7 +7,6 @@ services:
       - ${WP_VOLUME}:/var/www/html
     ports:
       - "443:443"
-      - "80:80"
     depends_on:
       - wordpress
     networks:
