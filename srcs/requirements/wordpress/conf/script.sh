@@ -11,6 +11,16 @@ chmod +x wp-cli.phar
 
 mv wp-cli.phar /usr/local/bin/wp
 
+if [ -f "/var/www/html/wp-config.php" ]; then
+    echo "wp-config.phpファイルが見つかりました。削除します。"
+    rm "/var/www/html/wp-config.php"
+    echo "wp-config.phpファイルを削除しました。"
+    sleep 5
+else
+    echo "wp-config.phpファイルが見つかりませんでした。"
+fi
+
+
 wp core download --allow-root
 
 wp config create --dbhost=mariadb:3306 --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" --dbpass="$MYSQL_PASSWORD" --allow-root
